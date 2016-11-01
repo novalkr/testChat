@@ -5,7 +5,7 @@ return array(
 	// this is displayed in the header section
 	'title'=>'My Yii Blog',
 	// this is used in error pages
-	'adminEmail'=>'webmaster@example.com',
+	'adminEmail'=>'webmaster@localhost',
 	// number of posts displayed per page
 	'postsPerPage'=>10,
 	// maximum number of comments that can be displayed in recent comments portlet
