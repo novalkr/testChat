@@ -11,6 +11,17 @@ $dir = dirname(__FILE__);
 $db = include ($dir . DIRECTORY_SEPARATOR . 'db.php');
 
 return array(
+        'modules'=>array(
+            'MessgeModule',
+            'gii'=>array(
+                'class'=>'system.gii.GiiModule',
+                'password'=>'123',
+                'ipFilters'=>array('192.168.0.10'),
+                // 'newFileMode'=>0666,
+                // 'newDirMode'=>0777,
+            ),
+        ),   
+    
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Yii Blog Demo',
 
