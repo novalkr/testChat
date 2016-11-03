@@ -167,7 +167,7 @@ class MessageController extends Controller
             foreach ( $messageAll as $messageKey => $messageOne ) {
                 $oneRow = array();
                 $oneRow['userId'] = $messageOne['userId'];
-                $oneRow['message'] = htmlspecialchars ($messageOne['message']);
+                $oneRow['message'] =  htmlentities ($messageOne['message']);
                 $oneRow['id'] = $messageOne['id'];
                 $oneRow['userName'] = '';
                 $oneRow['time'] = date( 'H:i:s',  strtotime($messageOne['dateTime']) );
