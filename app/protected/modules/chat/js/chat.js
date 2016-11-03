@@ -61,12 +61,9 @@ Chat = {
                  jQuery(thisObj.chatBody).toggle();
             });
         //input place
-            //this.chatInput = jQuery('#'+inputId);
             var tmpTd = jQuery('<td></td>').append(this.chatInput);
             var tmpTr = jQuery('<tr></tr>').append(tmpTd);
             jQuery(this.chatBody).prepend(tmpTr);
-
-            //jQuery(this.chatInput).wrap('<tr></tr>').wrap('<td></td>');
             var thisObj = this;
             jQuery(this.chatInput).keyup(function(eventObject){
                 if( eventObject.keyCode == 13  && jQuery(this).val() != '' ){
@@ -100,6 +97,7 @@ Chat = {
             var chatInput = jQuery(this.chatInput);
             var chatHistory = jQuery(this.hatHistory);
             messageStr['message'] = jQuery(chatInput).val();
+            jQuery(chatInput).val('');
             var data = {};
             var prefix = 'send to server: ';
             var thisObj = this;
@@ -122,8 +120,9 @@ Chat = {
                         if(answer.status == 'Ok'){
                             //thisObj.addToHistory(messageStr['message'], answer.id);
                             jQuery(chatInput).val('');
-                            thisObj.getMessageAll(true);
+                            //thisObj.getMessageAll(true);
                         } else {
+                           jQuery(chatInput).val(messageStr['message']);
                            console.log(prefix + answer.console);
                         }
                     },
@@ -132,6 +131,7 @@ Chat = {
                         console.log(e);
                         console.log(e.responseText);
                         //alert('Connect Error');
+                        jQuery(chatInput).val(messageStr['message']);
                     }
                 });
         },
