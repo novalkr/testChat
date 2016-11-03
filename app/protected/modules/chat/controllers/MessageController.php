@@ -176,7 +176,7 @@ class MessageController extends Controller
                     if(!empty($user)){
                         $userAll[$oneRow['userId']] = $user;
                     } else {
-                        $userAll[$oneRow['userId']]['username'] = 'Гость';
+                        $userAll[$oneRow['userId']]['username'] = 'Guest';
                     }
                 }
                 if(!empty($userAll[$oneRow['userId']])){
