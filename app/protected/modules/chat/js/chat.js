@@ -31,7 +31,7 @@ Chat = {
             jQuery(element).css('height', 'auto');
             jQuery(element).css('width', '150px');
             //jQuery(element).css('width', 'auto');
-            jQuery(element).css('background-color', 'red');
+            jQuery(element).css('background-color', '#effdff');
             jQuery(element).css('margin-bottom', 0);
             
         //inside structure
@@ -51,7 +51,7 @@ Chat = {
             var inputId = jQuery(element).attr('id')+'-input';
             this.chatBody = jQuery('#'+idBody);
             this.chatInput = jQuery('<input id="'+inputId+'" type="text" >');             
-            jQuery(this.chatInput).css('position', 'absolute');
+            //jQuery(this.chatInput).css('position', 'absolute');
             jQuery(this.chatInput).css('bottom', '5px');
             jQuery(this.chatInput).css('right', '5px');
             jQuery(this.chatInput).css('left', '5px');
@@ -87,7 +87,7 @@ Chat = {
             jQuery(this.chatHistory).css('margin-bottom',0);
             //Запускаем таймер
             this.getMessageAll();
-            //this.getByTimer();
+            this.getByTimer();
         },
 
         /**
@@ -120,7 +120,7 @@ Chat = {
                         console.log(prefix + 'has answer');
                         console.log(answer);
                         if(answer.status == 'Ok'){
-                            thisObj.addToHistory(messageStr['message'], answer.id);
+                            //thisObj.addToHistory(messageStr['message'], answer.id);
                             jQuery(chatInput).val('');
                             thisObj.getMessageAll();
                         } else {
@@ -144,19 +144,45 @@ Chat = {
          * @param {type} userName
          * @returns {undefined}
          */
-        addToHistory : function(msgStmr, msgId, userName){
+        addToHistory : function(msgStmr, msgId, userName, time){
             if(typeof (userName) == 'undefined' ){
                 userName = '';
             }
-            var blockUser = jQuery('<td>'+userName+'</td>')
-            var blockMessage = jQuery('<td>'+msgStmr+'</td>');            
+            if(typeof (time) == 'undefined' ){
+                time = '';
+            }
+            
+            var blockTime = jQuery('<div></div>');
+            if(time){
+                jQuery(blockTime).append( '['+time+'] ' );
+            }
+            jQuery(blockTime).css('position', 'relative');
+            jQuery(blockTime).css('float', 'left');
+            jQuery(blockTime).css('font-style', 'oblique');
+
+            var blockUser = jQuery('<div></div>')
+            jQuery(blockUser).append( userName );
+            jQuery(blockUser).append( ': ' );
+            
+            var newTd = jQuery('<td></td>'); 
+            jQuery(newTd).append( blockTime ); 
+            jQuery(newTd).append( blockUser );  
+            jQuery(blockUser).css('float', 'left');
+            jQuery(blockUser).css('font-weight', 600);
+            jQuery(newTd).append( msgStmr );
             jQuery(this.chatHistory);
             var newRow = jQuery('<tr id="chat-row-id-'+msgId+'" user="chat-row-user-id"></tr>');
-            jQuery(newRow).append(blockUser);
-            jQuery(newRow).append(blockMessage);
+            jQuery(newRow).append(newTd );            
             jQuery(this.chatHistory).append(newRow);
             if(jQuery(this.chatHistory).find('td').length > 15 ){
                 jQuery(this.chatHistory).find('td').first().remove();
+            }
+            
+            //brushing
+            if((jQuery('tr', this.chatHistory).length % 2)){
+                jQuery(newRow).css('background-color','#aaffaa');
+            }else{
+                jQuery(newRow).css('background-color','#ccffcc');
             }
         },
         
@@ -188,7 +214,12 @@ Chat = {
                         thisObj.delHistory();
                         for (var key in answer.mesages){
                             var mesageOne = answer.mesages[key];
-                            thisObj.addToHistory(mesageOne.message, mesageOne.id, mesageOne.userName);
+                            thisObj.addToHistory(
+                                    mesageOne.message, 
+                                    mesageOne.id, 
+                                    mesageOne.userName,
+                                    mesageOne.time
+                                );
                         }                                                
                         console.log(answer);
                     },

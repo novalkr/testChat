@@ -168,6 +168,7 @@ class MessageController extends Controller
                 $oneRow['message'] = $messageOne['message'];
                 $oneRow['id'] = $messageOne['id'];
                 $oneRow['userName'] = '';
+                $oneRow['time'] = date( 'H:i:s',  strtotime($messageOne['dateTime']) );
                 if(empty($userAll[$oneRow['userId']])){
                     $userClass = new User;
                     $user = $userClass->findByPk($oneRow['userId']);
