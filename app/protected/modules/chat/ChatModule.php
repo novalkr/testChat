@@ -1,6 +1,6 @@
 <?php
 
-class MessgeModuleModule extends CWebModule
+class ChatModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,9 @@ class MessgeModuleModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'MessgeModule.models.*',
-			'MessgeModule.components.*',
+			'chat.models.*',
+			'chat.components.*',
+                        'chat.controllers.*',
 		));
 	}
 
@@ -25,4 +26,13 @@ class MessgeModuleModule extends CWebModule
 		else
 			return false;
 	}
+        
+        private $_assetsUrl ;
+        public function getAssetsUrl()
+        {
+            if ($this->_assetsUrl === null)
+                $this->_assetsUrl = Yii::app()->getAssetManager()->publish(
+                    Yii::getPathOfAlias('chat.assets') ) ;
+            return $this->_assetsUrl ;
+        }        
 }

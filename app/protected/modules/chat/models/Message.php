@@ -38,9 +38,9 @@ class Message extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('dateTime', 'required'),
+			//array('dateTime', 'required'),
 			array('userId, parentId', 'numerical', 'integerOnly'=>true),
-			array('message', 'length', 'max'=>100),
+			array('message', 'length', 'max'=>110),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, userId, message, dateTime, parentId', 'safe', 'on'=>'search'),
@@ -93,4 +93,8 @@ class Message extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+        public function getLast() {
+            return $this->findAll(array('order'=>'t.dateTime DESC','limit' => 15));
+        }
 }
