@@ -27,7 +27,7 @@ class MessageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('create','index','view','getlast'),                                
+				'actions'=>array('create','getlast'),                                
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -35,7 +35,7 @@ class MessageController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','index','view'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -72,7 +72,8 @@ class MessageController extends Controller
                         } else {
                             $_POST['Message']['userId'] = 0;
                         }
-			$model->attributes=$_POST['Message'];
+                        $_POST['Message']['message'] = strip_tags($_POST['Message']['message']);
+			$model->attributes = $_POST['Message'];
 			if($model->save()){
                             if(Yii::app()->request->isAjaxRequest){
                                 $output = array();
@@ -166,7 +167,7 @@ class MessageController extends Controller
             foreach ( $messageAll as $messageKey => $messageOne ) {
                 $oneRow = array();
                 $oneRow['userId'] = $messageOne['userId'];
-                $oneRow['message'] = $messageOne['message'];
+                $oneRow['message'] = htmlspecialchars ($messageOne['message']);
                 $oneRow['id'] = $messageOne['id'];
                 $oneRow['userName'] = '';
                 $oneRow['time'] = date( 'H:i:s',  strtotime($messageOne['dateTime']) );
@@ -229,4 +230,6 @@ class MessageController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+
 }

@@ -40,7 +40,7 @@ class Message extends CActiveRecord
 		return array(
 			//array('dateTime', 'required'),
 			array('userId, parentId', 'numerical', 'integerOnly'=>true),
-			array('message', 'length', 'max'=>110),
+			array('message', 'length', 'max'=>110,),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, userId, message, dateTime, parentId', 'safe', 'on'=>'search'),
