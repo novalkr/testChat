@@ -94,7 +94,15 @@ class Message extends CActiveRecord
 		));
 	}
 
-        public function getLast() {
-            return $this->findAll(array('order'=>'t.dateTime DESC','limit' => 15));
+        public function getLast($after = 0) {
+            $after = empty($after)?0:((int)$after);        
+            return $this->findAll(               
+                array(  
+                    'condition' => 't.id > :id',
+                    'order'=>'t.dateTime DESC',
+                    'limit' => 15,
+                    'params' => array(':id' =>$after),
+                )
+            );
         }
 }
