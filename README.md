@@ -1,14 +1,14 @@
 Create chat to Yii Framework
 ============================
 
-Useing
+Using
 ------
 
-    + ul apache  2.4.10
-    + ul php     5.6.19
-    + ul mysql   Ver 14.14 Distrib 5.5.47
-    + ul yii     v1.1.10
-    + ul git     (optional)
+    apache  2.4.10
+    php     5.6.19
+    mysql   Ver 14.14 Distrib 5.5.47
+    yii     v1.1.10
+    git     (optional)
 
 Instalation
 -----------
@@ -52,7 +52,7 @@ Use
 
     Chat releaset haw modele, based (basedir)/app/protected/modules/chat
 
-    page where wish get cat add
+    put in page where wish get add chat
 
     <?php 
         $this->widget('application.modules.chat.components.ChatWidget');
