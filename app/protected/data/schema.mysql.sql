@@ -71,3 +71,22 @@ INSERT INTO tbl_comment (content, status, create_time, author, email, post_id) V
 INSERT INTO tbl_tag (name) VALUES ('yii');
 INSERT INTO tbl_tag (name) VALUES ('blog');
 INSERT INTO tbl_tag (name) VALUES ('test');
+
+
+
+-- create chat table
+
+CREATE TABLE IF NOT EXISTS `tbl_message` (
+`id` int(11) NOT NULL,
+  `userId` int(11) NOT NULL DEFAULT '0' COMMENT 'usr who send message',
+  `message` varchar(110) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT 'message',
+  `dateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'whow',
+  `parentId` int(11) NOT NULL DEFAULT '0' COMMENT 'answer by'
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tbl_message`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `tbl_message`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
+
