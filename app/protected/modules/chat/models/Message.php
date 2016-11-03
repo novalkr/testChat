@@ -94,6 +94,12 @@ class Message extends CActiveRecord
 		));
 	}
 
+        /**
+         * get last commen from database
+         * 
+         * @param type $after
+         * @return type
+         */
         public function getLast($after = 0) {
             $after = empty($after)?0:((int)$after);        
             return $this->findAll(               
