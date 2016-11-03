@@ -12,7 +12,9 @@ $db = include ($dir . DIRECTORY_SEPARATOR . 'db.php');
 
 return array(
         'modules'=>array(
-            'MessgeModule',
+            'chat' => array(
+                'class' => 'application.modules.chat.ChatModule',            
+            ),
             'gii'=>array(
                 'class'=>'system.gii.GiiModule',
                 'password'=>'123',
@@ -20,8 +22,7 @@ return array(
                 // 'newFileMode'=>0666,
                 // 'newDirMode'=>0777,
             ),
-        ),   
-    
+        ),      
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Yii Blog Demo',
 
@@ -32,27 +33,28 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'application.controllers.*',
 	),
 
 	'defaultController'=>'post',
 
 	// application components
 	'components'=>array(
-		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-		),
-		/*'db'=>array(
-			'connectionString' => 'sqlite:protected/data/blog.db',
-			'tablePrefix' => 'tbl_',
-		),*/
-		// uncomment the following to use a MySQL database
-		'db' => $db,
-		'errorHandler'=>array(
-			//  use 'site/error' action to display errors
-            'errorAction'=>'site/error',
-        ),
-        'urlManager'=>array(            
+            'user'=>array(
+                    // enable cookie-based authentication
+                    'allowAutoLogin'=>true,
+            ),
+            /*'db'=>array(
+                    'connectionString' => 'sqlite:protected/data/blog.db',
+                    'tablePrefix' => 'tbl_',
+            ),*/
+            // uncomment the following to use a MySQL database
+            'db' => $db,
+            'errorHandler'=>array(
+                //  use 'site/error' action to display errors
+                'errorAction'=>'site/error',
+            ),
+            'urlManager'=>array(            
         	'urlFormat'=>'path',
                 /*
         	'rules'=>array(
@@ -63,22 +65,22 @@ return array(
                 */
                 'urlFormat'=>'path',// включаем ЧПУ
                 'showScriptName'=>false, // убираем название скрипта 
-        ),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
-			),
-		),
+            ),
+            'log'=>array(
+                    'class'=>'CLogRouter',
+                    'routes'=>array(
+                            array(
+                                    'class'=>'CFileLogRoute',
+                                    'levels'=>'error, warning',
+                            ),
+                            // uncomment the following to show log messages on web pages
+                            /*
+                            array(
+                                    'class'=>'CWebLogRoute',
+                            ),
+                            */
+                    ),
+            ),                        
 	),
 
 	// application-level parameters that can be accessed
