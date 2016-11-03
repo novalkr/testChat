@@ -156,11 +156,12 @@ class MessageController extends Controller
 		));
 	}
 
-        public function actionGetLast(){
+        public function actionGetLast($onlyAfter = 0){
+            $onlyAfter = empty($onlyAfter)?0:((int)$onlyAfter);
             $output = array();
             $userAll = array();
             $model=new Message;
-            $messageAll = $model->getLast();
+            $messageAll = $model->getLast($onlyAfter);
             $messageAll = array_reverse($messageAll,false); 
             foreach ( $messageAll as $messageKey => $messageOne ) {
                 $oneRow = array();

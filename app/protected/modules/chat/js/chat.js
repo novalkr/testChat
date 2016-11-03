@@ -122,7 +122,7 @@ Chat = {
                         if(answer.status == 'Ok'){
                             //thisObj.addToHistory(messageStr['message'], answer.id);
                             jQuery(chatInput).val('');
-                            thisObj.getMessageAll();
+                            thisObj.getMessageAll(true);
                         } else {
                            console.log(prefix + answer.console);
                         }
@@ -198,20 +198,40 @@ Chat = {
          * get all last message
          * @returns {undefined}
          */
-        getMessageAll : function(){
+        getMessageAll : function(onlyLast){
+            var data = {};
+            var max = 0;
+            if(onlyLast){
+                jQuery(this.chatHistory)
+                    .find('tr')
+                    .each(function(ind,elm){
+                        var id = jQuery(elm).attr('id');
+                        var num = id.toString().split('chat-row-id-');
+                        num = num[1];
+                        num = parseInt(num);
+                        
+                        if(num >  max){
+                            max = num;
+                        }                        
+                    });
+                    data['onlyAfter'] = max;
+            }
+                
             var thisObj = this;
             var prefix = 'sending quest for server - get all message: ';
                 $.ajax({
-                    type: 'POST',
+                    //type: 'POST',
                     //timeout: 5000,
                     dataType: "json",
-                    //data: data,
+                    data: data,
                     url: this.urlGetAll ,
                     beforeSend: function(){
                         console.log(prefix + 'begin connect');
                     },
                     success: function(answer) {
-                        thisObj.delHistory();
+                        if(!onlyLast){
+                            thisObj.delHistory();
+                        }
                         for (var key in answer.mesages){
                             var mesageOne = answer.mesages[key];
                             thisObj.addToHistory(
@@ -237,7 +257,7 @@ Chat = {
          * @returns {undefined}
          */
         getByTimer : function(){
-            this.getMessageAll();
+            this.getMessageAll(true);
             var thisObj = this;
             setTimeout(function () {
               thisObj.getByTimer(); 
