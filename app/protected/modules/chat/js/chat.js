@@ -56,6 +56,7 @@ Chat = {
             jQuery(this.chatInput).css('right', '5px');
             jQuery(this.chatInput).css('left', '5px');
             jQuery(this.chatInput).attr('placeholder', 'Put your message');
+            jQuery(this.chatInput).attr('maxlength', 100);
             jQuery(this.chatBody).css('margin-bottom',0);            
             var thisObj = this;
             jQuery(thisObj.chatDivTitle).click(function(){
