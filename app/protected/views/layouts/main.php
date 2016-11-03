@@ -18,6 +18,24 @@
 </head>
 
 <body>
+    <div id="test-chat"></div>
+    <script>    
+        jQuery(document).ready(function(){
+            Chat.chat();
+        });
+    </script>
+    <?php
+    Yii::app()->clientScript->registerScriptFile(
+                //Yii::app()->assetManager->publish(
+                CHtml::asset(
+                    Yii::getPathOfAlias('chat.js')
+                        .'/chat.js'
+                ),
+                CClientScript::POS_END
+            );  
+    ;
+    ?>
+
 
 <div class="container" id="page">
 
