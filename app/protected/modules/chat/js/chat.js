@@ -153,7 +153,10 @@ Chat = {
             if(typeof (time) == 'undefined' ){
                 time = '';
             }
-            
+            //check message is alredy in history
+            if( jQuery('<#chat-row-id-'+msgId,this.chatHistory).length ){
+                return 0;;
+            }
             var blockTime = jQuery('<div></div>');
             if(time){
                 jQuery(blockTime).append( '['+time+'] ' );
