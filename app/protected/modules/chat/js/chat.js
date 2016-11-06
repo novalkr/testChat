@@ -147,15 +147,26 @@ Chat = {
          * @returns {undefined}
          */
         addToHistory : function(msgStmr, msgId, userName, time){
+            if(typeof (msgId) == 'undefined'   ){
+                msgId = 0;
+            }
+            msgId = parseInt(msgId );
+            if(isNaN(msgId)){
+                msgId = 0;
+            }
             if(typeof (userName) == 'undefined' ){
                 userName = '';
             }
             if(typeof (time) == 'undefined' ){
                 time = '';
             }
+            //check  message is new
+            if(msgId <= this.getMessageIdLast()){
+                 return 0;
+            }
             //check message is alredy in history
             if( jQuery('<#chat-row-id-'+msgId,this.chatHistory).length ){
-                return 0;;
+                return 0;
             }
             var blockTime = jQuery('<div></div>');
             if(time){
@@ -199,14 +210,9 @@ Chat = {
             jQuery(this.chatHistory).find('tr').remove();
         },
         
-        /**
-         * get all last message
-         * @returns {undefined}
-         */
-        getMessageAll : function(onlyLast){
-            var data = {};
+        
+        getMessageIdLast : function(){
             var max = 0;
-            if(onlyLast){
                 jQuery(this.chatHistory)
                     .find('tr')
                     .each(function(ind,elm){
@@ -219,6 +225,18 @@ Chat = {
                             max = num;
                         }                        
                     });
+            return max;
+        },
+        
+        /**
+         * get all last message
+         * @returns {undefined}
+         */
+        getMessageAll : function(onlyLast){
+            var data = {};
+            var max = 0;
+            if(onlyLast){
+                max =this.getMessageIdLast();
                     data['onlyAfter'] = max;
             }
                 
